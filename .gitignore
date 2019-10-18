@@ -1,6 +1,4 @@
 .*.swp
-*.pyc
-*.out
 *.wav
 venv/
 .env
