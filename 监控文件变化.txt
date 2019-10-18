@@ -1,0 +1,82 @@
+什么是inotify：
+
+  Inotify是一个事件驱动的通知机制，Inotify 提供一个简单的API，使用最小的文件描述符，并且允许细粒度监控。与 inotify 的通信是通过系统调用实现。可用的函数如下所示：
+  inotify_init  是用于创建一个inotify实例的系统调用，并返回一个指向该实例的文件描述符。
+  inotify_init1  与inotify_init相似，并带有附加标志。如果这些附加标志没有指定，将采用与inotify_init相同的值。
+  inotify_add_watch 增加对文件或者目录的监控，并指定需要监控哪些事件。标志用于控制是否将事件添加到已有的监控中，是否只有路径代表一个目录才进行监控，是否要追踪符号链接，是否进行一次性监控，当首次事件出现后就停止监控。
+  inotify_rm_watch 从监控列表中移出监控项目。
+  read 读取包含一个或者多个事件信息的缓存。
+  close 关闭文件描述符，并且移除所有在该描述符上的所有监控。当关于某实例的所有文件描述符都关闭时，资源和下层对象都将释放，以供内核再次使用。
+因此，典型的监控程序需要进行如下操作：
+
+  使用 inotify_init 打开一个文件描述符
+  添加一个或者多个监控
+  等待事件
+  处理事件，然后返回并等待更多事件
+  当监控不再活动时，或者接到某个信号之后，关闭文件描述符，清空，然后退出。
+pyinotify包的安装
+
+?
+1
+2
+3
+git clone https://github.com/seb-m/pyinotify.git
+cd pyinotify/
+python setup.py install
+
+Inotify 可以监视的文件系统事件包括：
+
+IN_ACCESS，即文件被访问
+IN_MODIFY，文件被write
+IN_ATTRIB，文件属性被修改，如chmod、chown、touch等
+IN_CLOSE_WRITE，可写文件被close
+IN_CLOSE_NOWRITE，不可写文件被close
+IN_OPEN，文件被open
+IN_MOVED_FROM，文件被移走,如mv
+IN_MOVED_TO，文件被移来，如mv、cp
+IN_CREATE，创建新文件
+IN_DELETE，文件被删除，如rm
+IN_DELETE_SELF，自删除，即一个可执行文件在执行时删除自己
+IN_MOVE_SELF，自移动，即一个可执行文件在执行时移动自己
+IN_UNMOUNT，宿主文件系统被umount
+IN_CLOSE，文件被关闭，等同于(IN_CLOSE_WRITE | IN_CLOSE_NOWRITE)
+IN_MOVE，文件被移动，等同于(IN_MOVED_FROM | IN_MOVED_TO)
+
+
+pyinotify使用例子
+
+#!/usr/bin/env python
+# encoding:utf-8
+  
+import os
+from pyinotify import WatchManager, Notifier, \
+ProcessEvent,IN_DELETE, IN_CREATE,IN_MODIFY
+  
+class EventHandler(ProcessEvent):
+ """事件处理"""
+ def process_IN_CREATE(self, event):
+  print  "Create file: %s " %  os.path.join(event.path,event.name)
+  
+ def process_IN_DELETE(self, event):
+  print  "Delete file: %s " %  os.path.join(event.path,event.name)
+ 
+ def process_IN_MODIFY(self, event):
+   print  "Modify file: %s " %  os.path.join(event.path,event.name)
+  
+def FSMonitor(path='.'):
+  wm = WatchManager() 
+  mask = IN_DELETE | IN_CREATE |IN_MODIFY
+  notifier = Notifier(wm, EventHandler())
+  wm.add_watch(path, mask,auto_add=True,rec=True)
+  print 'now starting monitor %s'%(path)
+  while True:
+   try:
+     notifier.process_events()
+     if notifier.check_events():
+       notifier.read_events()
+   except KeyboardInterrupt:
+     notifier.stop()
+     break
+  
+if __name__ == "__main__":
+ FSMonitor('/home/firefoxbug')
