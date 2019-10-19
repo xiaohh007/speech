@@ -26,15 +26,15 @@ from MysqlHelp import DB
 
 
 def RunScript(filepath) :
-    print(filepath)
+    print("runscript_pcm8000"+filepath)
     datetime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
     # 设置ffmpeg命令行格式
     code = "ffmpeg -i "
     codeMid = " -ac 1 -ar 8000 -y "
 
     outputname= "E:/FM_DEVICE_SERVER/public/pcm8000/"+os.path.basename(filepath)
-    print(os.path.basename(filepath))
-    print(outputname)
+    print("outputname"+os.path.basename(filepath))
+    print("outputpath"+outputname)
     if os.path.exists(outputname):
         # 执行ffmpeg命令
         finishcode = code + filepath + codeMid +outputname

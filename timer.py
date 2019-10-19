@@ -25,7 +25,7 @@ def fileformatswitcher():
         for f in filelist:
             file = os.path.basename(str(f.values()))
             filepath = startpath+str(file.split("'",1)[0])
-            print(filepath)
+            print("fileformatswitcher"+filepath)
             wav_pcm8000(filepath)
 
 
@@ -42,10 +42,12 @@ def speechrecognition():
 
 
 def wav_pcm8000(filepath):
+    print("wav_8000"+filepath)
     RunScript(filepath)
 
 
 def wav_pcm16000(filepath):
+    print("wav_16000"+filepath)
     RunScript16000(filepath)
 
 
