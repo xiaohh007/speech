@@ -27,7 +27,7 @@ def fileslist(path, allfile):
 def RunSpeech() :
         code = "speaker-recognition.py -t predict -i "
         codeMid = " -m model.out "
-        inputname= 'E:\FM_DEVICE_SERVER\public\pcm\*.wav'
+        inputname= 'E:/FM_DEVICE_SERVER/public/pcm8000/*.wav'
         finishcode = code + inputname + codeMid
         os.system(finishcode)
 

@@ -25,14 +25,14 @@ def fileformatswitcher():
         for f in filelist:
             file = os.path.basename(str(f.values()))
 
-            filepath = r"E:\FM_DEVICE_SERVER\public\record\\"+file.split("'",1)[0]
+            filepath = r"E:/FM_DEVICE_SERVER/public/record/"+file.split("'",1)[0]
             wav_pcm8000(filepath)
 
 
 
 # 每隔30s,对转码过后的文件进行分类,保存到数据库
 def speechrecognition():
-    fileDir = r'E:\FM_DEVICE_SERVER\public\pcm8000\\'
+    fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
     allfile = []
     fileslist(fileDir,allfile)
     for name in allfile:
