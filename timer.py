@@ -27,6 +27,8 @@ def fileformatswitcher():
             filepath = startpath+str(file.split("'",1)[0])
             print(filepath)
             wav_pcm8000(filepath)
+
+
 # 每隔30s,对转码过后的文件进行分类,保存到数据库
 def speechrecognition():
     # fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
@@ -37,8 +39,12 @@ def speechrecognition():
         # print(name,file=fff)
         print(name)
     RunSpeech(allfile)
+
+
 def wav_pcm8000(filepath):
     RunScript(filepath)
+
+
 def wav_pcm16000(filepath):
     RunScript16000(filepath)
 
