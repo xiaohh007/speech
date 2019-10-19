@@ -79,8 +79,10 @@ def task_predict(input_files, input_model):
         print (filepath, '->', label, ", score->", score)
         with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
             db.execute("UPDATE fm_t_scan_record SET sound_markup = '{}' WHERE radio_file_path = '{}'".format(label,filepath))
+            os.remove(filepath)
         if label == 'human' and label == 'music':
             wav_pcm16000(r'E:/FM_DEVICE_SERVER/public/record/'+os.path.basename(filepath))
+
 if __name__ == "__main__":
     global args
     args = get_args()
