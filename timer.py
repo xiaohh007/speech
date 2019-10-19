@@ -38,7 +38,7 @@ def speechrecognition():
     for name in allfile:
         # print(name,file=fff)
         print(name)
-    RunSpeech(allfile)
+    RunSpeech()
 
 
 def wav_pcm8000(filepath):
