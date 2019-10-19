@@ -20,7 +20,7 @@ def job1():
 #定时文件转码任务,每隔5s将文件转成pcm8000hz
 def fileformatswitcher():
     with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
-        db.execute("SELECT radio_file_path from fm_t_scan_record WHERE sound_markup IS NULL ORDER BY id DESC limit 500 ")
+        db.execute("SELECT radio_file_path from fm_t_scan_record WHERE sound_markup IS NULL ORDER BY id DESC limit 10 ")
         filelist = db.fetchall()
         for f in filelist:
             file = os.path.basename(str(f.values()))

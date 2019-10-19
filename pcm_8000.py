@@ -33,6 +33,7 @@ def RunScript(filepath) :
     codeMid = " -ac 1 -ar 8000 -y "
 
     outputname= "E:/FM_DEVICE_SERVER/public/pcm8000/"+os.path.basename(filepath)
+    print(outputname)
     if os.path.exists(outputname):
         # 执行ffmpeg命令
         finishcode = code + filepath + codeMid +outputname
