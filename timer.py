@@ -2,6 +2,7 @@ import os
 import time
 import datetime
 
+
 import schedule
 
 from MysqlHelp import DB
@@ -19,14 +20,19 @@ def job1():
 #定时文件转码任务,每隔5s将文件转成pcm8000hz
 def fileformatswitcher():
     with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
-        filepathlist = db.execute("SELECT radio_file_path from fm_t_scan_record WHERE sound_markup IS NULL ORDER BY id DESC LIMIT 3000")
-    for filepath in filepathlist:
+        db.execute("SELECT radio_file_path from fm_t_scan_record WHERE sound_markup IS NULL ORDER BY id DESC limit 500 ")
+        filelist = db.fetchall()
+        for f in filelist:
+            file = os.path.basename(str(f.values()))
 
-        wav_pcm8000(r'E:\FM_DEVICE_SERVER\public\record/'+os.path.basename(filepath))
+            filepath = r"E:\FM_DEVICE_SERVER\public\record\\"+file.split("'",1)[0]
+            wav_pcm8000(filepath)
+
+
 
 # 每隔30s,对转码过后的文件进行分类,保存到数据库
 def speechrecognition():
-    fileDir = r'D:/PCM'
+    fileDir = r'E:\FM_DEVICE_SERVER\public\pcm8000\\'
     allfile = []
     fileslist(fileDir,allfile)
     for name in allfile:

@@ -32,7 +32,7 @@ def RunScript(filepath) :
     code = "ffmpeg -i "
     codeMid = " -ac 1 -ar 8000 -y "
 
-    outputname= "E:\FM_DEVICE_SERVER\public\pcm\\"+os.path.basename(filepath)
+    outputname= "E:\FM_DEVICE_SERVER\public\pcm8000\\"+os.path.basename(filepath)
     if os.path.exists(outputname):
         # 执行ffmpeg命令
         finishcode = code + filepath + codeMid +outputname
@@ -50,7 +50,7 @@ def RunScript16000(filepath) :
         code = "ffmpeg -i "
         codeMid = " -ac 1 -ar 16000 -y "
 
-        outputname= "E:\FM_DEVICE_SERVER\public\pcm16\\"+os.path.basename(filepath)
+        outputname= "E:\FM_DEVICE_SERVER\public\pcm16000\\"+os.path.basename(filepath)
 
         # 执行ffmpeg命令
         finishcode = code + filepath + codeMid +outputname
