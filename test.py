@@ -12,6 +12,6 @@ if __name__ == '__main__':
             # print(f)
             file = os.path.basename(str(f.values()))
             print(file)
-            print(file.split("'",1)[0])
+            print(r"E:/FM_DEVICE_SERVER/public/record/"+file.split("'",1)[0])
             # url = re.findall('https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+', str(f.values()))
             # print(url)

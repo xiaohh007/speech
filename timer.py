@@ -26,6 +26,7 @@ def fileformatswitcher():
             file = os.path.basename(str(f.values()))
 
             filepath = r"E:/FM_DEVICE_SERVER/public/record/"+file.split("'",1)[0]
+            print(filepath)
             wav_pcm8000(filepath)
 
 
@@ -55,7 +56,7 @@ def wav_pcm16000(self):
 if __name__ == '__main__':
     global filepath
     filepath = ""
-    schedule.every(5).seconds.do(job1)
+    # schedule.every(5).seconds.do(job1)
     schedule.every(5).seconds.do(fileformatswitcher())
     schedule.every(30).seconds.do(speechrecognition())
 
