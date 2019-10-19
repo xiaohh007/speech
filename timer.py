@@ -59,7 +59,7 @@ def wav_pcm16000(filepath):
 if __name__ == '__main__':
 
 
-    # schedule.every(5).seconds.do(job1)
+    schedule.every(5).seconds.do(job1)
     schedule.every(5).seconds.do(fileformatswitcher())
     schedule.every(30).seconds.do(speechrecognition())
 
