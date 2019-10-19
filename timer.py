@@ -10,12 +10,12 @@ from pcm_8000 import RunScript, RunScript16000
 from speech_recognition import RunSpeech, fileslist
 
 
-def job1(self):
-    print('Job1:每隔10秒执行一次的任务，每次执行2秒')
-    print('Job1-startTime:%s' %(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    time.sleep(2)
-    print('Job1-endTime:%s' % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
-    print('------------------------------------------------------------------------')
+# def job1(self):
+#     print('Job1:每隔10秒执行一次的任务，每次执行2秒')
+#     print('Job1-startTime:%s' %(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+#     time.sleep(2)
+#     print('Job1-endTime:%s' % (datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
+#     print('------------------------------------------------------------------------')
 #定时文件转码任务,每隔5s将文件转成pcm8000hz
 def fileformatswitcher():
     startpath = r"E:/FM_DEVICE_SERVER/public/record/"
@@ -59,7 +59,7 @@ def wav_pcm16000(filepath):
 if __name__ == '__main__':
 
 
-    schedule.every(5).seconds.do(job1)
+    # schedule.every(5).seconds.do(job1)
     schedule.every(5).seconds.do(fileformatswitcher)
     schedule.every(30).seconds.do(speechrecognition)
 
