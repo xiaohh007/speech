@@ -25,7 +25,7 @@ class timed_task:
             for f in filelist:
                 file = os.path.basename(str(f.values()))
 
-                filepath = r"E:/FM_DEVICE_SERVER/public/record/"+file.split("'",1)[0]
+                filepath = startpath+file.split("'",1)[0]
                 print(filepath)
                 timed_task.wav_pcm8000(filepath)
 
@@ -33,7 +33,7 @@ class timed_task:
 
     # 每隔30s,对转码过后的文件进行分类,保存到数据库
     def speechrecognition(self):
-        fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
+        # fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
         allfile = []
         fileslist(fileDir,allfile)
         for name in allfile:
@@ -54,10 +54,11 @@ class timed_task:
 
 
 if __name__ == '__main__':
-
+    startpath = r"E:/FM_DEVICE_SERVER/public/record/"
+    fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
     # schedule.every(5).seconds.do(job1)
-    schedule.every(5).seconds.do(timed_task.fileformatswitcher())
-    schedule.every(30).seconds.do(timed_task.speechrecognition())
+    schedule.every(5).seconds.do(timed_task.fileformatswitcher(startpath))
+    schedule.every(30).seconds.do(timed_task.speechrecognition(fileDir))
 
     while True:
         schedule.run_pending()
