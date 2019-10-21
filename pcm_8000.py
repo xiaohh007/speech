@@ -35,7 +35,7 @@ def RunScript(filepath) :
     outputname= "E:/FM_DEVICE_SERVER/public/pcm8000/"+os.path.basename(filepath)
     print("outputname"+os.path.basename(filepath))
     print("outputpath"+outputname)
-    if os.path.exists(filepath):
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
         # 执行ffmpeg命令
         finishcode = code + filepath + codeMid +outputname
         os.system(finishcode)
