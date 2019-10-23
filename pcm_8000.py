@@ -40,7 +40,7 @@ def RunScript(filepath):
         print("文件不存在,直接更新为异常状态")
         filepath = "http://sh.illegalfm.com:4881/record/"+os.path.basename(outputname)
         with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
-            db.execute("UPDATE fm_t_scan_record SET sound_markup = 'Error' WHERE radio_file_path = '{}'".format(filepath))
+            db.execute("UPDATE fm_t_scan_record SET sound_markup = 'error' WHERE radio_file_path = '{}'".format(filepath))
 
 def RunScript16000(filepath) :
         datetime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
