@@ -4,7 +4,12 @@ from skgmm import GMMSet
 from features import get_feature
 import time
 
+
+
+
 class ModelInterface:
+
+
 
     def __init__(self):
         self.features = defaultdict(list)
@@ -35,10 +40,11 @@ class ModelInterface:
         """
         return a label (name)
         """
+        global feat
         try:
             feat = get_feature(fs, signal)
         except Exception as e:
-            print (e)
+            print(e)
         return self.gmmset.predict_one(feat)
 
     @staticmethod

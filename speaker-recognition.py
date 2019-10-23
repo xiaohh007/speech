@@ -76,7 +76,7 @@ def task_predict(input_files, input_model):
         fs, signal = read_wav(f)
         label, score = m.predict(fs, signal)
         filepath ="http://sh.illegalfm.com:4881/record/"+os.path.basename(f)
-        print (filepath, '->', label, ", score->", score)
+        print(filepath, '->', label, ", score->", score)
         with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
             db.execute("UPDATE fm_t_scan_record SET sound_markup = '{}' WHERE radio_file_path = '{}'".format(label,filepath))
         os.remove(f)
