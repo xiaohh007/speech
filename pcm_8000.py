@@ -26,36 +26,32 @@ from MysqlHelp import DB
 
 
 def RunScript(filepath):
-    print("runscript_pcm8000"+filepath)
     datetime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
     # 设置ffmpeg命令行格式
     code = "ffmpeg -i "
     codeMid = " -ac 1 -ar 8000 -y "
-
     outputname= "E:/FM_DEVICE_SERVER/public/pcm8000/"+os.path.basename(filepath)
-    print("outputname"+os.path.basename(filepath))
-    print("outputpath"+outputname)
     if os.path.exists(filepath) and os.path.getsize(filepath) > 30000:
         # 执行ffmpeg命令
+        print("开始执行转码任务,将wav文件的编码格式转换成pcm8000hz")
         finishcode = code + filepath + codeMid +outputname
         os.system(finishcode)
-        print(datetime+"file format conversion:"+filepath)
     else:
+        print("文件不存在,直接更新为异常状态")
         filepath = "http://sh.illegalfm.com:4881/record/"+os.path.basename(outputname)
         with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
-            db.execute("UPDATE fm_t_scan_record SET sound_markup = 'Exception' WHERE radio_file_path = '{}'".format(filepath))
+            db.execute("UPDATE fm_t_scan_record SET sound_markup = 'Error' WHERE radio_file_path = '{}'".format(filepath))
 
 def RunScript16000(filepath) :
-
         datetime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
         # 设置ffmpeg命令行格式
         code = "ffmpeg -i "
         codeMid = " -ac 1 -ar 16000 -y "
-
         outputname= "E:/FM_DEVICE_SERVER/public/pcm16000/"+os.path.basename(filepath)
 
         # 执行ffmpeg命令
         if os.path.exists(filepath) and os.path.getsize(filepath) > 30000:
+            print("开始执行转码任务,将wav文件的编码格式转换成pcm16000hz")
             finishcode = code + filepath + codeMid +outputname
             os.system(finishcode)
             print(datetime+"file format conversion:"+filepath)
