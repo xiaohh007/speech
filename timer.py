@@ -60,8 +60,8 @@ if __name__ == '__main__':
 
 
     # schedule.every(5).seconds.do(job1)
-    schedule.every(5).seconds.do(fileformatswitcher)
-    schedule.every(15).seconds.do(speechrecognition)
+    schedule.every(30).seconds.do(fileformatswitcher)
+    schedule.every(60).seconds.do(speechrecognition)
 
     while True:
         schedule.run_pending()
