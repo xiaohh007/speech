@@ -25,7 +25,7 @@ from os import path
 from MysqlHelp import DB
 
 
-def RunScript(filepath) :
+def RunScript(filepath):
     print("runscript_pcm8000"+filepath)
     datetime = time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time()))
     # 设置ffmpeg命令行格式

@@ -29,6 +29,17 @@ def fileformatswitcher():
             wav_pcm8000(filepath)
 
 
+def fileformatswitch():
+    startpath = r"E:/FM_DEVICE_SERVER/public/record/"
+    with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
+        db.execute("SELECT id,radio_file_path,sound_markup from fm_t_scan_record WHERE sound_markup IS NOT NULL AND sound_markup !='noise' AND radio_file_path != 'undefined' ORDER BY id DESC limit 100")
+        filelist = db.fetchall()
+        for f in filelist:
+            file = os.path.basename(str(f.values()))
+            filepath = startpath+str(file.split("'",1)[0])
+            print("fileformatswitcher"+filepath)
+            wav_pcm16000(filepath)
+
 # 每隔30s,对转码过后的文件进行分类,保存到数据库
 def speechrecognition():
     # fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
@@ -60,8 +71,9 @@ if __name__ == '__main__':
 
 
     # schedule.every(5).seconds.do(job1)
-    schedule.every(30).seconds.do(fileformatswitcher)
-    schedule.every(60).seconds.do(speechrecognition)
+    schedule.every(29).seconds.do(fileformatswitcher)
+    schedule.every(34).seconds.do(fileformatswitch)
+    schedule.every(61).seconds.do(speechrecognition)
 
     while True:
         schedule.run_pending()
