@@ -35,7 +35,7 @@ def RunScript(filepath):
     outputname= "E:/FM_DEVICE_SERVER/public/pcm8000/"+os.path.basename(filepath)
     print("outputname"+os.path.basename(filepath))
     print("outputpath"+outputname)
-    if os.path.exists(filepath) and os.path.getsize(filepath) > 0:
+    if os.path.exists(filepath) and os.path.getsize(filepath) > 30000:
         # 执行ffmpeg命令
         finishcode = code + filepath + codeMid +outputname
         os.system(finishcode)
@@ -55,9 +55,12 @@ def RunScript16000(filepath) :
         outputname= "E:/FM_DEVICE_SERVER/public/pcm16000/"+os.path.basename(filepath)
 
         # 执行ffmpeg命令
-        finishcode = code + filepath + codeMid +outputname
-        os.system(finishcode)
-        print(datetime+"file format conversion:"+filepath)
+        if os.path.exists(filepath) and os.path.getsize(filepath) > 30000:
+            finishcode = code + filepath + codeMid +outputname
+            os.system(finishcode)
+            print(datetime+"file format conversion:"+filepath)
+        else:
+            print("文件错误!")
 
 
 # 主程序运行
