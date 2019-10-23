@@ -50,7 +50,7 @@ def RunScript16000(filepath) :
         outputname= "E:/FM_DEVICE_SERVER/public/pcm16000/"+os.path.basename(filepath)
 
         # 执行ffmpeg命令
-        if os.path.exists(filepath) and os.path.getsize(filepath) > 30000:
+        if os.path.exists(filepath) and os.path.getsize(filepath) > 100000:
             print("开始执行转码任务,将wav文件的编码格式转换成pcm16000hz")
             finishcode = code + filepath + codeMid +outputname
             os.system(finishcode)
