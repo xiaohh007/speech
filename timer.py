@@ -32,7 +32,8 @@ def fileformatswitcher():
 def fileformatswitch():
     startpath = r"E:/FM_DEVICE_SERVER/public/record/"
     with DB(host='47.92.33.19',user='root',passwd='1qazxsw2',db='database_fm') as db:
-        db.execute("SELECT id,radio_file_path,sound_markup from fm_t_scan_record WHERE sound_markup ='music' or sound_markup ='human'  ORDER BY id DESC limit 100")
+        db.execute("SELECT id,radio_file_path,recognition,sound_markup FROM (SELECT id,radio_file_path,recognition,sound_markup from fm_t_scan_record"+
+        "WHERE recognition = '未识别' ORDER BY id DESC limit 100) temp WHERE temp.sound_markup = 'human' OR temp.sound_markup = 'music'")
         filelist = db.fetchall()
         for f in filelist:
             file = os.path.basename(str(f.values()))
