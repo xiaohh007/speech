@@ -46,7 +46,7 @@ def fileformatswitch():
 # 每隔30s,对转码过后的文件进行分类,保存到数据库
 def speechrecognition():
     # fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
-    fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000/'
+    fileDir = r'E:/FM_DEVICE_SERVER/public/pcm8000a/'
     allfile = []
     fileslist(fileDir,allfile)
     for name in allfile:
