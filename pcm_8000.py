@@ -30,7 +30,7 @@ def RunScript(filepath):
     # 设置ffmpeg命令行格式
     code = "ffmpeg -i "
     codeMid = " -ac 1 -ar 8000 -y "
-    outputname= "E:/FM_DEVICE_SERVER/public/pcm8000a/"+os.path.basename(filepath)
+    outputname= "E:/FM_DEVICE_SERVER/public/pcm8000b/"+os.path.basename(filepath)
     if os.path.exists(filepath) and os.path.getsize(filepath) > 30000:
         # 执行ffmpeg命令
         print("开始执行转码任务,将wav文件的编码格式转换成pcm8000hz")
